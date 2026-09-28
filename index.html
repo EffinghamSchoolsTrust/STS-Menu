@@ -1,29 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-
-<style>
-html, body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: white;
-}
-
-img {
-    width: 100vw;
-    height: 100vh;
-    object-fit: contain;
-}
-</style>
-</head>
-
-<body>
-
-<img id="menu">
-
 <script>
 const menus = {
     1: "Monday.jpg",
@@ -35,9 +9,17 @@ const menus = {
     0: "Sunday.jpg"
 };
 
-document.getElementById("menu").src =
-    menus[new Date().getDay()];
-</script>
+const ukTime = new Date(
+    new Date().toLocaleString("en-GB", {
+        timeZone: "Europe/London"
+    })
+);
 
-</body>
-</html>
+let day = ukTime.getDay();
+
+if (ukTime.getHours() >= 14) {
+    day = (day + 1) % 7;
+}
+
+document.getElementById("menu").src = menus[day];
+</script>
