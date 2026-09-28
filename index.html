@@ -1,25 +1,66 @@
-<script>
-const menus = {
-    1: "Monday.jpg",
-    2: "Tuesday.jpg",
-    3: "Wednesday.jpg",
-    4: "Thursday.jpg",
-    5: "Friday.jpg",
-    6: "Saturday.jpg",
-    0: "Sunday.jpg"
-};
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-const ukTime = new Date(
-    new Date().toLocaleString("en-GB", {
-        timeZone: "Europe/London"
-    })
-);
+<title>Today's Menu</title>
 
-let day = ukTime.getDay();
-
-if (ukTime.getHours() >= 14) {
-    day = (day + 1) % 7;
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #ffffff;
 }
 
-document.getElementById("menu").src = menus[day];
+#menu {
+    width: 100vw;
+    height: 100vh;
+    object-fit: contain;
+    display: block;
+}
+</style>
+</head>
+
+<body>
+
+<img id="menu" alt="Today's Menu">
+
+<script>
+function showMenu() {
+
+    const menus = [
+        "Sunday.jpg",
+        "Monday.jpg",
+        "Tuesday.jpg",
+        "Wednesday.jpg",
+        "Thursday.jpg",
+        "Friday.jpg",
+        "Saturday.jpg"
+    ];
+
+    const now = new Date();
+
+    let day = now.getDay();
+
+    // After 2pm show tomorrow's menu
+    if (now.getHours() >= 14) {
+        day = (day + 1) % 7;
+    }
+
+    document.getElementById("menu").src =
+        menus[day] + "?v=" + Date.now();
+}
+
+// Run immediately
+showMenu();
+
+// Refresh every 5 minutes
+setInterval(showMenu, 300000);
 </script>
+
+</body>
+</html>
