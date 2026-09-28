@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<style>
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: white;
+}
+
+img {
+    width: 100vw;
+    height: 100vh;
+    object-fit: contain;
+}
+</style>
+</head>
+
+<body>
+
+<img id="menu">
+
+<script>
+const menus = {
+    1: "Monday.jpg",
+    2: "Tuesday.jpg",
+    3: "Wednesday.jpg",
+    4: "Thursday.jpg",
+    5: "Friday.jpg",
+    6: "Saturday.jpg",
+    0: "Sunday.jpg"
+};
+
+document.getElementById("menu").src =
+    menus[new Date().getDay()];
+</script>
+
+</body>
+</html>
