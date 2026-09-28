@@ -1,66 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Today's Menu</title>
-
 <style>
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: #ffffff;
+html,body{
+    margin:0;
+    width:100%;
+    height:100%;
 }
-
-#menu {
-    width: 100vw;
-    height: 100vh;
-    object-fit: contain;
-    display: block;
+#menu{
+    width:100%;
+    height:100%;
+    object-fit:contain;
 }
 </style>
 </head>
-
 <body>
 
-<img id="menu" alt="Today's Menu">
-
-<script>
-function showMenu() {
-
-    const menus = [
-        "Sunday.jpg",
-        "Monday.jpg",
-        "Tuesday.jpg",
-        "Wednesday.jpg",
-        "Thursday.jpg",
-        "Friday.jpg",
-        "Saturday.jpg"
-    ];
-
-    const now = new Date();
-
-    let day = now.getDay();
-
-    // After 2pm show tomorrow's menu
-    if (now.getHours() >= 14) {
-        day = (day + 1) % 7;
-    }
-
-    document.getElementById("menu").src =
-        menus[day] + "?v=" + Date.now();
-}
-
-// Run immediately
-showMenu();
-
-// Refresh every 5 minutes
-setInterval(showMenu, 300000);
-</script>
+<img id="pg
 
 </body>
 </html>
