@@ -5,6 +5,9 @@ on:
     paths:
       - 'pdfs/*.pdf'
 
+permissions:
+  contents: write
+
 jobs:
   convert:
     runs-on: ubuntu-latest
@@ -12,10 +15,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install ImageMagick and Poppler
+      - name: Install tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y poppler-utils imagemagick
+          sudo apt-get install -y poppler-utils
 
       - name: Convert PDFs
         run: |
@@ -28,17 +31,17 @@ jobs:
             pdftoppm \
               -jpeg \
               -singlefile \
-              -scale-to 1920 \
               "$pdf" \
               "menus/$name"
           done
 
-      - name: Commit JPGs
+      - name: Commit changes
         run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          git config --local user.email "github-actions@github.com"
+          git config --local user.name "GitHub Actions"
 
-          git add menus/*.jpg
+          git add menus/
 
-          git commit -m "Auto-convert PDFs to JPG" || exit 0
+          git diff --staged --quiet || git commit -m "Update menu images"
+
           git push
