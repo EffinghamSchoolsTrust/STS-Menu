@@ -33,15 +33,16 @@ html, body {
 function showMenu() {
 
     const menus = [
-        "Monday.jpg",
-        "Tuesday.jpg",
-        "Wednesday.jpg",
-        "Thursday.jpg",
-        "Friday.jpg",
+        null,               // Sunday
+        "Monday.jpg",       // Monday
+        "Tuesday.jpg",      // Tuesday
+        "Wednesday.jpg",    // Wednesday
+        "Thursday.jpg",     // Thursday
+        "Friday.jpg",       // Friday
+        null                // Saturday
     ];
 
     const now = new Date();
-
     let day = now.getDay();
 
     // After 2pm show tomorrow's menu
@@ -49,14 +50,22 @@ function showMenu() {
         day = (day + 1) % 7;
     }
 
-    document.getElementById("menu").src =
-        menus[day] + "?v=" + Date.now();
+    const menu = document.getElementById("menu");
+
+    if (menus[day]) {
+        menu.src = menus[day] + "?v=" + Date.now();
+        menu.style.display = "block";
+    } else {
+        // Weekend - blank screen
+        menu.removeAttribute("src");
+        menu.style.display = "none";
+    }
 }
 
 // Run immediately
 showMenu();
 
-// Refresh every 5 minutes
+// Check every 5 minutes
 setInterval(showMenu, 300000);
 </script>
 
